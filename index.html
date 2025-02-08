@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>move</title>
+  <title>Valentine's Day</title>
   <style>
     body {
       margin: 0;
@@ -28,6 +28,7 @@
       background-color: #ffffffaa;
       padding: 2rem 3rem;
       border-radius: 15px;
+	  width: 600px;
       box-shadow: 0 0 20px rgba(0,0,0,0.1);
     }
 
@@ -66,32 +67,72 @@
     .no-btn:hover {
       background-color: #bbb;
     }
+    .flex-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem; /* Space between the GIFs and the container */
+      height: 100vh;
+    }
+	.valentine-gif {
+	  width: 400px; /* Adjust the size as needed */
+	  height: auto;
+	  margin-bottom: 1rem;
+	  border-radius: 15px; /* Optional: Rounded corners for the GIF */
+	}
+	.side-gif {
+	  width: 500px; /* Adjust size of the side GIFs */
+	  height: auto;
+	}
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Will You Be My Valentine?</h1>
-    <p>I’d be so happy if you say “Yes!”</p>
-    <div class="btn-container">
-      <button class="val-btn yes-btn" id="yesBtn">Yes</button>
-      <button class="val-btn no-btn" id="noBtn">No</button>
-    </div>
-  </div>
+	<div class="flex-container">
+	  <img src="https://media.tenor.com/4DiFwww6548AAAAi/kitty.gif" alt="Left Gif" class="side-gif" />
+	  <div class="container">
+		<img src="https://media1.tenor.com/m/vIGJcLzn-rkAAAAC/blink-pesta%C3%B1ear.gif" alt="Valentine's Day Gif" class="valentine-gif" />
+		<h1>Jane, Will You Be My Valentine?</h1>
+		<p>Please say yes (◕‿◕✿)</p>
+		<div class="btn-container">
+		  <button class="val-btn yes-btn" id="yesBtn">Yes</button>
+		  <button class="val-btn no-btn" id="noBtn">No</button>
+		</div>
+	  </div>
+      <img src="https://media.tenor.com/4DiFwww6548AAAAi/kitty.gif" alt="Right Gif" class="side-gif" />
+	</div>
 
   <script>
-    // “No” button: does nothing
-    document.getElementById("noBtn").onclick = function() {
-      // Intentionally does nothing
+    // Shared function that replaces the page content with a "Yippee!" message
+    function showYippee() {
+      document.body.innerHTML = `
+      <div class="flex-container">
+        <img src="https://media.tenor.com/iXHKUYR5MgcAAAAi/love-you-love.gif" alt="Left Gif" class="side-gif" />
+          <div class="container">
+			<img src="https://media1.tenor.com/m/fHbGEBHCaqwAAAAC/tbh-creature-autism-creature.gif" alt="Valentine's Day Gif" class="valentine-gif" />
+            <h1 style="font-size: 3em; color: #ff4f74;">yippee!</h1>
+            <p style="font-size: 1.5em; color: #b70039;">Thank you for being my valentine Jane ⸜(｡˃ ᵕ ˂ )⸝</p>
+          </div>
+        <img src="https://media.tenor.com/iXHKUYR5MgcAAAAi/love-you-love.gif" alt="Right Gif" class="side-gif" />
+      </div>
+      `;
+    }
+
+    // Yes button: show "Yippee!" message
+    document.getElementById("yesBtn").onclick = function() {
+      showYippee();
     };
 
-    // “Yes” button: replaces the entire page with a "Yippee!" message
-    document.getElementById("yesBtn").onclick = function() {
-      document.body.innerHTML = `
-        <div style="text-align: center; margin-top: 10%; font-family: 'Helvetica Neue', Arial, sans-serif;">
-          <h1 style="font-size: 3em; color: #ff4f74;">Yippee!</h1>
-          <p style="font-size: 1.5em; color: #b70039;">Thank you for being my Valentine!</p>
-        </div>
-      `;
+    // No button: replace the No button itself with a Yes button
+    document.getElementById("noBtn").onclick = function() {
+      // Create a new "Yes" button
+      const newYesBtn = document.createElement("button");
+      newYesBtn.innerText = "Yes";
+      newYesBtn.className = "val-btn yes-btn";
+      newYesBtn.onclick = showYippee;
+
+      // Replace the No button with the new Yes button
+      const container = this.parentNode;
+      container.replaceChild(newYesBtn, this);
     };
   </script>
 </body>
